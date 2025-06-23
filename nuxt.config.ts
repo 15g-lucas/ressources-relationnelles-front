@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // nuxt.config.ts
 export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
@@ -23,10 +22,4 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-=======
-// https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true }
->>>>>>> 0a735559203fb409c2273936f6c25ab46fa7c560
 })

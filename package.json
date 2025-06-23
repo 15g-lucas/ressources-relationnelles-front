@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "nuxt": "^3.16.2",
-<<<<<<< HEAD
     "vite-tsconfig-paths": "^5.1.4",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
@@ -20,9 +19,5 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17"
-=======
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
->>>>>>> 0a735559203fb409c2273936f6c25ab46fa7c560
   }
 }
