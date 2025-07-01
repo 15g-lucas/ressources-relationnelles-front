@@ -1,65 +1,80 @@
 <template>
-  <div class="flex">
+  <div class="flex relative">
     <Sidebar />
+
     <div class="flex-1 p-6 overflow-y-auto space-y-4">
-      <!-- Affiche la Postcard spéciale uniquement si l'overlay n'est pas affiché -->
-      <!-- Post de création -->
-      <Postcard
-        v-if="route.query.openAdd === '1' && !showOverlay"
-        image="path/to/profile-image.jpg"
-        name="Toi"
-        pseudo="tonpseudo"
-        title="Nouveau post à créer ici..."
-        description=""
-        url=""
-        contentImages={[]}
-        saves={0}
-        favorites={0}
-        exploited={0}
-        shares={0}
-        timestamp="2025-06-28T12:00:00"
-        :comments="[]"
-      />
+      <!-- Bouton filtre en haut à droite, en superposition -->
+    <div class="fixed top-4 right-6 z-50">
+        <select
+          v-model="selectedFilter"
+          class="px-4 py-2 rounded-lg bg-white text-gray-700 text-sm shadow-md border border-gray-300"
+        >
+          <option value="all">Tous</option>
+          <option value="1">Famille</option>
+          <option value="2">Amis</option>
+          <option value="3">Autres</option>
+        </select>
+      </div>
 
-      <!-- Post statique d'accueil -->
-      <Postcard
-        image="path/to/profile-image.jpg"
-        name="Romain MUR"
-        pseudo="romainmur"
-        title="Bienvenue sur notre plateforme !"
-        description="Découvrez les derniers posts."
-        url=""
-        contentImages={[]}
-        saves=12
-        favorites=34
-        exploited=5
-        shares=3
-        timestamp="2025-06-06T12:00:00"
-        :comments="[]"
-      />
+      <!-- Liste des Postcards -->
+      <div class="space-y-4">
+        <!-- Post de création -->
+        <Postcard
+          v-if="route.query.openAdd === '1' && !showOverlay"
+          image="path/to/profile-image.jpg"
+          name="Toi"
+          pseudo="tonpseudo"
+          title="Nouveau post à créer ici..."
+          description=""
+          url=""
+          :contentImages="[]"
+          :saves="0"
+          :favorites="0"
+          :exploited="0"
+          :shares="0"
+          timestamp="2025-06-28T12:00:00"
+          :comments="[]"
+        />
 
-      <!-- Liste dynamique de posts -->
-      <Postcard
-        v-for="post in posts"
-        :key="post.id"
-        :image="post.author.image"
-        :name="post.author.name"
-        :pseudo="post.author.pseudo"
-        :title="post.title"
-        :description="post.description"
-        :url="post.url"
-        :contentImages="post.contentImages"
-        :saves="post.saves"
-        :favorites="post.favorites"
-        :exploited="post.exploited"
-        :shares="post.shares"
-        :timestamp="post.created_at"
-        :comments="post.comments"
-      />
+        <!-- Post statique de bienvenue -->
+        <Postcard
+          image="path/to/profile-image.jpg"
+          name="Romain MUR"
+          pseudo="romainmur"
+          title="Bienvenue sur notre plateforme !"
+          description="Découvrez les derniers posts."
+          url=""
+          :contentImages="[]"
+          :saves="12"
+          :favorites="34"
+          :exploited="5"
+          :shares="3"
+          timestamp="2025-06-06T12:00:00"
+          :comments="[]"
+        />
 
+        <!-- Postcards filtrées -->
+        <Postcard
+          v-for="post in filteredPosts"
+          :key="post.id"
+          :image="post.author.image"
+          :name="post.author.name"
+          :pseudo="post.author.pseudo"
+          :title="post.title"
+          :description="post.description"
+          :url="post.url"
+          :contentImages="post.contentImages"
+          :saves="post.saves"
+          :favorites="post.favorites"
+          :exploited="post.exploited"
+          :shares="post.shares"
+          :timestamp="post.created_at"
+          :comments="post.comments"
+        />
+      </div>
     </div>
 
-    <!-- Overlay -->
+    <!-- Overlay de création -->
     <AddPostOverlay v-if="showOverlay" @close="closeOverlay" />
   </div>
 </template>
@@ -177,4 +192,14 @@ const simulatedData = [
     comments: []
   }
 ]
+
+const selectedFilter = ref('all')
+
+const filteredPosts = computed(() => {
+  if (selectedFilter.value === 'all') {
+    return posts.value
+  }
+  return posts.value.filter(post => String(post.visibility) === selectedFilter.value)
+})
+
 </script>
