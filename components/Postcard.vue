@@ -36,72 +36,87 @@
 
       <!-- Actions du post -->
       <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-sm text-gray-500">
-        <!-- Commentaires -->
-        <button 
-          @click="toggleComments" 
-          class="flex items-center space-x-1 hover:text-blue-500 transition-colors duration-200"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-          <span>{{ localComments.length }}</span>
-        </button>
 
-        <!-- Favoris -->
-        <button 
-          @click="handleFavorite" 
-          class="flex items-center space-x-1 hover:text-red-500 transition-colors duration-200 active:scale-95"
-          :class="{ 'text-red-500': isFavorited }"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" 
-            :fill="isFavorited ? 'currentColor' : 'none'"
-            stroke="currentColor"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
-          <span>{{ currentFavorites }}</span>
-        </button>
+      <!-- Commentaires -->
+      <button 
+        @click="toggleComments"
+        aria-label="Afficher les commentaires"
+        class="flex items-center space-x-1 hover:text-blue-500 transition-colors duration-200"
+      >
+        <!-- Icône commentaires -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+        <span>{{ localComments.length }}</span>
+      </button>
 
-        <!-- Exploité -->
-        <button 
-          @click="handleExploited" 
-          class="flex items-center space-x-1 hover:text-green-500 transition-colors duration-200 active:scale-95"
-          :class="{ 'text-green-500': isExploited }"
+      <!-- Favoris -->
+      <button 
+        @click="handleFavorite"
+        aria-label="Ajouter aux favoris"
+        class="flex items-center space-x-1 hover:text-red-500 transition-colors duration-200 active:scale-95"
+        :class="{ 'text-red-500': isFavorited }"
+      >
+        <!-- Icône cœur -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+          :fill="isFavorited ? 'currentColor' : 'none'"
+          stroke="currentColor"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-          </svg>
-          <span>{{ currentExploited }}</span>
-        </button>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <span>{{ currentFavorites }}</span>
+      </button>
 
-        <!-- Partages -->
-        <button 
-          @click="handleShare" 
-          class="flex items-center space-x-1 hover:text-purple-500 transition-colors duration-200 active:scale-95"
-          :class="{ 'text-purple-500': isShared }"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" 
-            :fill="isShared ? 'currentColor' : 'none'"
-            stroke="currentColor"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-          </svg>
-          <span>{{ currentShares }}</span>
-        </button>
-        
-        <!-- Sauvegardes -->
-        <button 
-          @click="handleSave" 
-          class="flex items-center space-x-1 hover:text-yellow-500 transition-colors duration-200 active:scale-95"
-          :class="{ 'text-yellow-500': isSaved }"
-        >
-          💾 <span>{{ currentSaves }}</span>
-        </button>
-      </div>
+      <!-- Partages (vert) -->
+      <button 
+        @click="handleShare"
+        aria-label="Partager la publication"
+        class="flex items-center space-x-1 hover:text-green-500 transition-colors duration-200 active:scale-95"
+        :class="{ 'text-green-500': isShared }"
+      >
+        <!-- Icône avec 3 ronds et traits -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+        </svg>
+        <span>{{ currentShares }}</span>
+      </button>
+
+      <!-- Exploité (jaune) -->
+      <button 
+        @click="handleExploited"
+        aria-label="Marquer comme exploité"
+        class="flex items-center space-x-1 hover:text-yellow-500 transition-colors duration-200 active:scale-95"
+        :class="{ 'text-yellow-500': isExploited }"
+      >
+        <!-- Main + cœur -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M2 14c0-.6.4-1 1-1h3.3c.3 0 .5.1.7.3l1.3 1.3h3.7c.4 0 .8.3.9.7l.6 2.2 4.3-1.2c.5-.1 1 .1 1.3.5.3.4.3 1 0 1.4l-.7 1.1c-.3.4-.7.7-1.2.8l-6.6 1.3c-.5.1-1.1 0-1.5-.3l-6-4.2C2.3 16 2 15.5 2 15v-1z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 4.5c0-1.1.9-2 2-2s2 .9 2 2c0 .6-.3 1.2-.8 1.7L12 9l-3.2-2.8C8.3 5.7 8 5.1 8 4.5c0-1.1.9-2 2-2s2 .9 2 2z" />
+        </svg>
+        <span>{{ currentExploited }}</span>
+      </button>
+
+      <!-- Sauvegardes (violet) -->
+      <button 
+        @click="handleSave"
+        aria-label="Sauvegarder la publication"
+        class="flex items-center space-x-1 hover:text-purple-500 transition-colors duration-200 active:scale-95"
+        :class="{ 'text-purple-500': isSaved }"
+      >
+        <!-- Icône marque-page -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" 
+          :fill="isSaved ? 'currentColor' : 'none'" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+        </svg>
+        <span>{{ currentSaves }}</span>
+      </button>
+    </div>
     </div>
 
     <!-- Section commentaires -->
@@ -110,7 +125,7 @@
         <div class="p-4 border-b border-gray-200 bg-white">
           <div class="flex space-x-3">
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" 
+              src="https://randomuser.me/api/portraits/lego/1.jpg" 
               alt="Your avatar" 
               class="w-10 h-10 rounded-full object-cover" 
             >
@@ -251,7 +266,7 @@ const addComment = () => {
     text: newComment.value.trim(),
     name: 'Vous',
     pseudo: 'you',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    image: 'https://randomuser.me/api/portraits/lego/1.jpg',
     publishedAt: new Date().toISOString(),
     replies: []
   }
@@ -281,7 +296,7 @@ const addReply = (parentCommentId, replyText) => {
       text: replyText,
       name: 'Vous',
       pseudo: 'you',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+      image: 'https://randomuser.me/api/portraits/lego/1.jpg',
       publishedAt: new Date().toISOString()
     }
     

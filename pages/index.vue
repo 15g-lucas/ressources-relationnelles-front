@@ -12,7 +12,7 @@
           <option value="all">Tous</option>
           <option value="1">Famille</option>
           <option value="2">Amis</option>
-          <option value="3">Autres</option>
+          <option value="3">Collègues</option>
         </select>
       </div>
 
@@ -37,7 +37,7 @@
         />
 
         <!-- Post statique de bienvenue -->
-        <Postcard
+        <!--<Postcard
           image="path/to/profile-image.jpg"
           name="Romain MUR"
           pseudo="romainmur"
@@ -51,7 +51,7 @@
           :shares="3"
           timestamp="2025-06-06T12:00:00"
           :comments="[]"
-        />
+        />-->
 
         <!-- Postcards filtrées -->
         <Postcard
@@ -75,7 +75,11 @@
     </div>
 
     <!-- Overlay de création -->
-    <AddPostOverlay v-if="showOverlay" @close="closeOverlay" />
+    <AddPostOverlay
+      v-if="showOverlay"
+      @close="closeOverlay"
+      @submit-post="addPost"
+    />
   </div>
 </template>
 
@@ -133,65 +137,102 @@ onMounted(async () => {
 })
 
 // Méthode pour ajouter un post (depuis l'overlay)
-function addPost(newPostContent) {
-  // Construis un nouveau post avec les données reçues
+function addPost(postData) {
   const newPost = {
     id: Date.now(),
-    image: "https://randomuser.me/api/portraits/lego/1.jpg", // ou autre image par défaut
-    name: "Ton Nom", // à personnaliser ou récupérer dynamiquement
-    pseudo: "ton_pseudo",
-    text: newPostContent,
-    publishedAt: new Date().toISOString(),
-    contentImages: []
+    author: {
+      image: "https://randomuser.me/api/portraits/lego/1.jpg",
+      name: "Vous", 
+      pseudo: "you"
+    },
+    title: postData.title || '',
+    description: postData.content,
+    url: "",
+    visibility: postData.visibility,
+    visibilityOptions: postData.visibilityOptions || null,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    contentImages: [],
+    saves: 0,
+    favorites: 0,
+    exploited: 0,
+    shares: 0,
+    comments: []
   }
-  posts.value.unshift(newPost) // Ajoute en tête de liste
+
+  posts.value.unshift(newPost)
   closeOverlay()
 }
 
 const simulatedData = [
   {
-    id: 2,
+    id: 4,
     author: {
-      image: "path/to/profile-image.jpg",
-      name: "Catherine Sauce",
-      pseudo: "csauce"
+      image: "https://www.w3schools.com/howto/img_avatar.png",
+      name: "Jean Dupont",
+      pseudo: "jeandupont"
     },
-    title: "Lorem ipsum dolor sit amet",
-    description: "Consectetur adipiscing elit...",
+    title: "Comprendre les bases de JavaScript",
+    description: "JavaScript est un langage de programmation polyvalent utilisé pour rendre les pages web interactives.",
     url: "",
     visibility: 1,
-    created_at: "2024-09-10T14:00:00",
-    updated_at: "2024-09-10T14:00:00",
-    contentImages: [],
-    saves: 4,
-    favorites: 2,
-    exploited: 1,
-    shares: 0,
+    created_at: "2024-08-01T09:30:00",
+    updated_at: "2024-08-01T09:30:00",
+    contentImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
+    ],
+    saves: 10,
+    favorites: 5,
+    exploited: 3,
+    shares: 2,
+    comments: [
+    ]
+  },
+  {
+    id: 5,
+    author: {
+      image: "https://www.w3schools.com/howto/img_avatar2.png",
+      name: "Marie Martin",
+      pseudo: "mariemartin"
+    },
+    title: "L'art de la photographie",
+    description: "La photographie est bien plus que capturer des moments, c'est raconter des histoires à travers des images.",
+    url: "",
+    visibility: 3,
+    created_at: "2024-07-15T11:45:00",
+    updated_at: "2024-07-15T11:45:00",
+    contentImages: [
+      "https://static.vecteezy.com/system/resources/previews/002/556/694/non_2x/eiffel-tower-is-the-tallest-structure-in-paris-france-photo.jpg"
+    ],
+    saves: 15,
+    favorites: 8,
+    exploited: 4,
+    shares: 3,
     comments: []
   },
   {
-    id: 3,
+    id: 6,
     author: {
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Flag_of_Mozambique.svg/640px-Flag_of_Mozambique.svg.png",
-      name: "Mozambique",
-      pseudo: "mozambiquezer"
+      image: "https://www.w3schools.com/w3images/avatar6.png",
+      name: "Alice Lefèvre",
+      pseudo: "alicelefevre"
     },
-    title: "Lorem ipsum dolor sit amet",
-    description: "Consectetur adipiscing elit...",
+    title: "Cuisiner des repas délicieux à la maison",
+    description: "Découvrez comment cuisiner des repas délicieux avec des ingrédients simples et accessibles.",
     url: "",
-    visibility: 1,
-    created_at: "2023-10-10T14:00:00",
-    updated_at: "2023-10-10T14:00:00",
+    visibility: 2,
+    created_at: "2024-06-20T16:20:00",
+    updated_at: "2024-06-20T16:20:00",
     contentImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Flag_of_Mozambique.svg/640px-Flag_of_Mozambique.svg.png"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1200px-Good_Food_Display_-_NCI_Visuals_Online.jpg"
     ],
-    saves: 7,
-    favorites: 3,
-    exploited: 2,
-    shares: 1,
+    saves: 20,
+    favorites: 12,
+    exploited: 6,
+    shares: 5,
     comments: []
   }
-]
+];
 
 const selectedFilter = ref('all')
 

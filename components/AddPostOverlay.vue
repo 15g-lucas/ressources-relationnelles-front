@@ -67,13 +67,22 @@
         </label>
       </div>
 
+      <!-- Title input -->
+      <div class="bg-gray-50 rounded-lg p-4 mb-4">
+        <input
+          v-model="title"
+          type="text"
+          class="w-full bg-transparent border-none outline-none resize-none placeholder-gray-500 text-lg font-semibold"
+          placeholder="Titre du post"
+        />
+      </div>
       <!-- Text area -->
       <div class="bg-gray-50 rounded-lg p-4">
         <textarea
           v-model="content"
           rows="4"
           class="w-full bg-transparent border-none outline-none resize-none placeholder-gray-500"
-          placeholder="Add your text here"
+          placeholder="Ajoutez votre texte ici"
         ></textarea>
         
         <!-- Media buttons -->
@@ -118,6 +127,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 
+const title = ref('')
 const content = ref('')
 const selectedVisibility = ref('public')
 
@@ -137,21 +147,23 @@ function submitPost() {
   }
 
   const postData = {
+    title: title.value,
     content: content.value,
     visibility: selectedVisibility.value,
     visibilityOptions: selectedVisibility.value === 'custom' ? { ...visibilityOptions } : null
   }
 
   emit('submit-post', postData)
-  
+
   // Reset form
+  title.value = ''
   content.value = ''
   selectedVisibility.value = 'public'
   visibilityOptions.famille = true
   visibilityOptions.amis = true
   visibilityOptions.collegues = true
   visibilityOptions.autre = true
-  
+
   emit('close')
 }
 </script>

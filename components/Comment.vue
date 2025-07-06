@@ -37,7 +37,7 @@
           <div v-if="showReplyForm" class="mt-3 pl-2 border-l-2 border-blue-200">
             <div class="flex space-x-2">
               <img 
-                src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" 
+                src="https://randomuser.me/api/portraits/lego/1.jpg" 
                 alt="Your avatar" 
                 class="w-8 h-8 rounded-full object-cover" 
               >
