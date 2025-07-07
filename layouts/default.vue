@@ -1,7 +1,8 @@
 <template>
   <div class="flex">
     <Sidebar />
-    <div class="flex-1 ml-64 min-h-screen p-4">
+    <!-- Desktop: margin left for sidebar, Mobile: margin bottom for tab bar -->
+    <div class="flex-1 md:ml-64 ml-0 min-h-screen p-4 pb-20 md:pb-4">
       <MetaManager :meta="metaData" />
       <div class="content">
         <NuxtPage />
