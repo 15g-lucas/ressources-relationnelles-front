@@ -136,4 +136,7 @@ function handleAddClick() {
 .tab-btn:hover {
   @apply bg-gray-50;
 }
++.tab-btn:focus {
++  @apply outline-none ring-2 ring-blue-600 ring-offset-2;
++}
 </style>
