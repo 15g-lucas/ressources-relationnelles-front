@@ -77,11 +77,7 @@
       </form>
 
       <!-- Info simulation -->
-      <div class="text-center">
-        <p class="text-xs text-gray-500">
-          💡 Mode simulation - Pas de vrai backend requis
-        </p>
-      </div>
+      
     </div>
   </div>
 </template>
